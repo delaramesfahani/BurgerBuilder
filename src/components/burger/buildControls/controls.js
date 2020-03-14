@@ -7,11 +7,11 @@ const Controls = [
   { label: 'Bacon', type: 'bacon' },
   { label: 'Cheese', type: 'cheese' },
   { label: 'Meat', type: 'meat' }
-
 ]
 const BurgerControls = (props) =>
   (
     <div className='BuildControls'>
+      <p>Current Price : <strong>{props.price} $</strong></p>
       {
         Controls.map(Ctrl =>
           (<Burgercontrol

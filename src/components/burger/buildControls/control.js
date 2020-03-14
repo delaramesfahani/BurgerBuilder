@@ -13,6 +13,7 @@ const Burgercontrol = (props) => (
     <button 
       className='More'
       onClick={props.added}>More</button>
+      
   </div>
 )
 export default Burgercontrol
