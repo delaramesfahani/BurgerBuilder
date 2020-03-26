@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Aux from '../../hoc/Aux'
 import Burger from '../../components/burger/burger'
 import BurgerControls from '../../components/burger/buildControls/controls'
+import Modal from '../../components/UI/Modal/modal'
+import OrderSummary from '../../components/burger/burgerSummary/burgerSummary'
 
 //I wrote it capital and out of class becaus it's Global 
 const INGREDIENT_PRICES = {
@@ -22,7 +24,8 @@ class BurgerBuilder extends Component {
         bacon: 0
       },
       totalPrice: 4,
-      purchasable: false
+      purchasable: false,
+      purchasing: false       //for showing modal
     }
   }
 
@@ -73,6 +76,12 @@ class BurgerBuilder extends Component {
     this.updatePurchaseHandler(updatedIngredients)
   }
 
+  purchasingHandler = () => {
+    this.setState({
+      purchasing: true
+    })
+  }
+
   render () {
     const disableInfo = {
       ...this.state.ingredients
@@ -82,6 +91,9 @@ class BurgerBuilder extends Component {
     }
     return (
       <Aux>
+        <Modal show={this.state.purchasing}>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls 
           ingredientsAdded = {this.addGredientsHandler}
@@ -89,9 +101,11 @@ class BurgerBuilder extends Component {
           disabled = {disableInfo}
           price = {this.state.totalPrice}
           purchasable = {this.state.purchasable}
+          ordered = {this.purchasingHandler}
         />
       </Aux>
     )
   }
 }
 export default BurgerBuilder
+ 
