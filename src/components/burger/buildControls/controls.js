@@ -11,7 +11,7 @@ const Controls = [
 const BurgerControls = (props) =>
   (
     <div className='BuildControls'>
-      <p>Current Price : <strong>{props.price} $</strong></p>
+      <p>Current Price : <strong>{props.price.toFixed(2)} $</strong></p>
       {
         Controls.map(Ctrl =>
           (<Burgercontrol
