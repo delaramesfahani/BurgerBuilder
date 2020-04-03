@@ -4,12 +4,29 @@ import './style.css'
 import Toolbar from '../Navigation/Toolbar/toolbar'
 import SlideDrawer from '../Navigation/SlideDrawer/SlideDrawer'
 
-class layout extends React.Component {
+class Layout extends React.Component {
+  state = {
+    showSlideDrawer : false
+  }
+  slideDrawerCloseHandler = () => {
+    this.setState({
+      showSlideDrawer :false
+    })
+  }
+
+  SlideDrawerToggleHandler = () => {
+    this.setState( (prevState) => {
+      return {showSlideDrawer : !prevState.showSlideDrawer}
+    })
+  }
+
   render () {
     return (
       <Aux>
-        <Toolbar />
-        <SlideDrawer />
+        <Toolbar drawerToggle={this.SlideDrawerToggleHandler} />
+        <SlideDrawer 
+        closed={ this.slideDrawerCloseHandler} 
+        open={this.state.showSlideDrawer} />
         <main className='Content'>
           {this.props.children}
         </main>
@@ -17,4 +34,4 @@ class layout extends React.Component {
     )
   }
 }
-export default layout
+export default Layout
