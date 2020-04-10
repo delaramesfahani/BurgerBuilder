@@ -4,6 +4,8 @@ import Burger from '../../components/burger/burger'
 import BurgerControls from '../../components/burger/buildControls/controls'
 import Modal from '../../components/UI/Modal/modal'
 import OrderSummary from '../../components/burger/burgerSummary/burgerSummary'
+import axios from '../../axios-orders'
+
 
 //I wrote it capital and out of class becaus it's Global 
 const INGREDIENT_PRICES = {
@@ -88,6 +90,23 @@ class BurgerBuilder extends Component {
     })
   }
 
+  purchasContinueHandler = () => {
+    const orders = {
+      ingredients : this.state.ingredients,
+      price : this.state.totalPrice,
+      customer : {
+        name : 'delaram',
+        address : 'street one',
+        country : 'Iran'
+      },
+      email : 'test@gmail.com'
+    }
+
+    axios.post('/orders.json',orders) 
+      .then(response => console.log('response::' , response))
+      .catch(error => console.log('error::' , error))
+  }
+
   render () {
     const disableInfo = {
       ...this.state.ingredients
@@ -100,7 +119,9 @@ class BurgerBuilder extends Component {
         <Modal show={this.state.purchasing} modalClosing={this.purchasingCloseModalHandler}>
           <OrderSummary 
             ingredients={this.state.ingredients} 
-            price={this.state.totalPrice} />
+            price={this.state.totalPrice} 
+            continue={this.purchasContinueHandler}
+            />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls 
