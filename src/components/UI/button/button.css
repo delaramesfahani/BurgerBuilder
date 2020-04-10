@@ -8,6 +8,8 @@
     padding: 10px;
     margin: 10px;
     font-weight: bold;
+    color: green;
+    font-size: 16px;
 }
 
 .Button:first-of-type {

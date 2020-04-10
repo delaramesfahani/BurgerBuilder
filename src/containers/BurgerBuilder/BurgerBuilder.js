@@ -4,6 +4,7 @@ import Burger from '../../components/burger/burger'
 import BurgerControls from '../../components/burger/buildControls/controls'
 import Modal from '../../components/UI/Modal/modal'
 import OrderSummary from '../../components/burger/burgerSummary/burgerSummary'
+import Spinner from '../../components/UI/Spinner/spinner'
 import axios from '../../axios-orders'
 
 
@@ -27,7 +28,8 @@ class BurgerBuilder extends Component {
       },
       totalPrice: 4,
       purchasable: false,
-      purchasing: false       //for showing modal
+      purchasing: false,       //for showing modal
+      loading: false
     }
   }
 
@@ -91,6 +93,7 @@ class BurgerBuilder extends Component {
   }
 
   purchasContinueHandler = () => {
+    this.setState({ loading: true})
     const orders = {
       ingredients : this.state.ingredients,
       price : this.state.totalPrice,
@@ -103,8 +106,8 @@ class BurgerBuilder extends Component {
     }
 
     axios.post('/orders.json',orders) 
-      .then(response => console.log('response::' , response))
-      .catch(error => console.log('error::' , error))
+      .then(response => this.setState({ loading: false , purchasing: false}))
+      .catch(error => this.setState({ loading: false , purchasing: false}))
   }
 
   render () {
@@ -114,14 +117,19 @@ class BurgerBuilder extends Component {
     for (let key in disableInfo) {
       disableInfo[key] = disableInfo[key] <=0
     }
+
+    let orderSummary = <OrderSummary 
+    ingredients={this.state.ingredients} 
+    price={this.state.totalPrice} 
+    continue={this.purchasContinueHandler}
+    />
+    if (this.state.loading) {
+      orderSummary = <Spinner />
+    }
     return (
       <Aux>
         <Modal show={this.state.purchasing} modalClosing={this.purchasingCloseModalHandler}>
-          <OrderSummary 
-            ingredients={this.state.ingredients} 
-            price={this.state.totalPrice} 
-            continue={this.purchasContinueHandler}
-            />
+          {orderSummary}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BurgerControls 

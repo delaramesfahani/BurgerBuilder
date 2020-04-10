@@ -6,7 +6,10 @@ import Backdorp from '../Backdrop/backdrop'
 class Modal extends React.Component {
   shouldComponentUpdate (nextProps, nextState) {
     // this function should return just boolean
-    return nextProps.show !== this.props.show
+
+    return nextProps.show !== this.props.show || nextProps.children !== this.props.children
+
+    // nextProps.children is for Modal update for Spinner loading
   }
 
   componentWillUpdate () {
