@@ -40,6 +40,7 @@ class BurgerBuilder extends Component {
       this.setState({
         error : true
       })
+      console.log('error' , error)
     })
   }
 
@@ -130,7 +131,7 @@ class BurgerBuilder extends Component {
 
     let orderSummary = null
 
-    let burger = this.state.error ? <p>Sorry Ingredients can not load for now !</p> : <Spinner />
+    let burger = this.state.error ? <p>Sorry Ingredients can not load for now!</p> : <Spinner />
     if (this.state.ingredients) {
       burger = (
         <Aux>
