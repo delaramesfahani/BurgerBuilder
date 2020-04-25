@@ -11,6 +11,19 @@ class Checkout extends React.Component{
         }
     }
 
+    componentDidMount () {
+
+        console.log('props::', this.props)
+        const query = new URLSearchParams(this.props.location.search)
+        const updatedIngredients = {}
+        for( const param of query.entries()) {
+            updatedIngredients[param[0]] = +param[1]  //object form
+        }
+        this.setState({
+            ingredients: updatedIngredients
+        })
+    }
+
     checkoutContinueHandler = () => {
         this.props.history.replace('/checkout/order-data')
     }
