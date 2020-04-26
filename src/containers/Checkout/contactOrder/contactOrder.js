@@ -2,6 +2,7 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import './contactOrder.css'
 import axios from '../../../axios-orders'
+import Spinner from '../../../components/UI/Spinner/spinner'
 
 class ContactOrder extends React.Component {
   constructor () {
@@ -35,15 +36,21 @@ class ContactOrder extends React.Component {
   }
 
   render () {
+    let form = (
+      <form className='ContactContainer'>
+        <TextField label='Name' variant='outlined' />
+        <TextField label='Email' variant='outlined' />
+        <TextField label='Address' variant='outlined' />
+        <TextField id='outlined-basic' label='Postal Card' variant='outlined' />
+        <button className='OrderBtn' onClick={(event) => this.orderHandler(event)}>Order</button>
+      </form>
+    )
+    if (this.state.loading) {
+      form = <Spinner />
+    }
     return (
       <div>
-        <form className='ContactContainer'>
-          <TextField label='Name' variant='outlined' />
-          <TextField label='Email' variant='outlined' />
-          <TextField label='Address' variant='outlined' />
-          <TextField id='outlined-basic' label='Postal Card' variant='outlined' />
-          <button className='OrderBtn' onClick={(event) => this.orderHandler(event)}>Order</button>
-        </form>
+        {form}
       </div>
 
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 import CheckoutSummary from '../../components/Order/checkoutSummary/checkoutSummary'
-import { Route } from 'react-router-dom'
+// import { Route } from 'react-router-dom'
 import ContactOrder from '../Checkout/contactOrder/contactOrder'
 
 class Checkout extends React.Component{
