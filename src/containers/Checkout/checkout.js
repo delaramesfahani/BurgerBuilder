@@ -1,5 +1,7 @@
 import React from 'react'
 import CheckoutSummary from '../../components/Order/checkoutSummary/checkoutSummary'
+import { Route } from 'react-router-dom'
+import ContactOrder from '../Checkout/contactOrder/contactOrder'
 
 class Checkout extends React.Component{
     state = {
@@ -12,8 +14,7 @@ class Checkout extends React.Component{
     }
 
     componentDidMount () {
-
-        console.log('props::', this.props)
+       // console.log('props::', this.props)
         const query = new URLSearchParams(this.props.location.search)
         const updatedIngredients = {}
         for( const param of query.entries()) {
@@ -39,6 +40,17 @@ class Checkout extends React.Component{
                   ingredients={this.state.ingredients}
                   checkoutContinue={this.checkoutContinueHandler}
                   checkoutCancel={this.checkoutCancelHandler} />
+                 
+                 
+                {/* <Route 
+                 path={this.props.match.url + '/contact-data'} 
+                 render={ () => (<ContactOrder />) } />  
+                 
+                 I could not render my component in Rout! need to work on it
+
+                 */}
+
+                 <ContactOrder ingredients={this.state.ingredients} />
             </div>
         )
     }
