@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField'
 import './contactOrder.css'
 import axios from '../../../axios-orders'
 import Spinner from '../../../components/UI/Spinner/spinner'
+import { withRouter } from 'react-router-dom'
 
 class ContactOrder extends React.Component {
   constructor () {
@@ -31,7 +32,11 @@ class ContactOrder extends React.Component {
     }
 
     axios.post('/orders.json', orders)
-      .then(response => this.setState({ loading: false }))
+      .then(response => {
+        this.setState({ loading: false })
+        this.props.history.push('/')
+      })
+
       .catch(error => this.setState({ loading: false }))
   }
 
@@ -56,4 +61,4 @@ class ContactOrder extends React.Component {
     )
   }
 }
-export default ContactOrder
+export default withRouter(ContactOrder)
